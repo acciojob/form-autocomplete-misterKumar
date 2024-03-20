@@ -2,81 +2,74 @@
 <html>
 
 <head>
-	<title>Form Auto-Complete</title>
-	<style>
-		form {
-			display: inline-block;
-			margin-top: 20px;
-		}
+    <title>Form Auto-Complete</title>
+    <style>
+        form {
+            display: inline-block;
+            margin-top: 20px;
+        }
 
-		label {
-			display: inline-block;
-			width: 100px;
-		}
+        label {
+            display: inline-block;
+            width: 100px;
+        }
 
-		input[type="text"] {
-			margin-bottom: 10px;
-		}
+        input[type="text"] {
+            margin-bottom: 10px;
+        }
 
-		input[type="button"] {
-			margin-top: 10px;
-		}
-	</style>
+        input[type="button"] {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body onload="autoFillForm();">
-	<h1>Form Auto-Complete</h1>
-	<form>
-		<label>Name:</label>
-		<input type="text" id="name"><br>
-		<label>Email:</label>
-		<input type="text" id="email"><br>
-		<label>Phone:</label>
-		<input type="text" id="phone"><br>
-		<input type="button" value="Submit" onclick="saveFormData()">
-	</form>
-	<script>
-    // Save form data to Local Storage
-    function saveFormData() {
-        event.preventDefault(); // Prevent default form submission behavior
+    <h1>Form Auto-Complete</h1>
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name"><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email"><br>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone"><br>
+        <input type="button" value="Submit" onclick="saveFormData()">
+    </form>
+    <script>
+        // Save form data to Local Storage
+        function saveFormData() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("phone").value;
 
-        let data = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value
-        };
+            let data = {
+                name: name,
+                email: email,
+                phone: phone
+            };
 
-        let forms = localStorage.getItem("forms");
-        if (forms) {
-            forms = JSON.parse(forms);
-            forms.push(data);
-        } else {
-            forms = [data];
+            let forms = localStorage.getItem("forms");
+            if (forms) {
+                forms = JSON.parse(forms);
+                forms.push(data);
+            } else {
+                forms = [data];
+            }
+            localStorage.setItem("forms", JSON.stringify(forms));
         }
-        localStorage.setItem("forms", JSON.stringify(forms));
 
-        // Optionally, you can clear the form fields after submission
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("phone").value = "";
-    }
-
-    // Auto-fill form with previous data
-    function autoFillForm() {
-        let forms = localStorage.getItem("forms");
-        if (forms) {
-            forms = JSON.parse(forms);
-            if (forms.length > 0) {
+        // Auto-fill form with previous data
+        function autoFillForm() {
+            let forms = localStorage.getItem("forms");
+            if (forms) {
+                forms = JSON.parse(forms);
                 let lastForm = forms[forms.length - 1];
                 document.getElementById("name").value = lastForm.name;
                 document.getElementById("email").value = lastForm.email;
                 document.getElementById("phone").value = lastForm.phone;
             }
         }
-    }
-
-</script>
-
+    </script>
 </body>
 
 </html>
