@@ -1,13 +1,40 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-	<link rel="stylesheet" href="styles.css">
+	<title>Form Auto-Complete</title>
+	<style>
+		form {
+			display: inline-block;
+			margin-top: 20px;
+		}
+
+		label {
+			display: inline-block;
+			width: 100px;
+		}
+
+		input[type="text"] {
+			margin-bottom: 10px;
+		}
+
+		input[type="button"] {
+			margin-top: 10px;
+		}
+	</style>
 </head>
 
-<body>
-	<!-- the entire body must be written by student -->
+<body onload="autoFillForm();">
+	<h1>Form Auto-Complete</h1>
+	<form>
+		<label>Name:</label>
+		<input type="text" id="name"><br>
+		<label>Email:</label>
+		<input type="text" id="email"><br>
+		<label>Phone:</label>
+		<input type="text" id="phone"><br>
+		<input type="button" value="Submit" onclick="saveFormData()">
+	</form>
     <script type="text/javascript" src="./script.js">
 </script>
 
